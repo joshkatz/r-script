@@ -36,7 +36,10 @@ var out = R("ex-sync.R")
   
 console.log(out);
 
-// [ 'oedorlwlh l', 'oldlrhelwo ', 'erllol dhow', ' lwrellodoh', 'holdlerw ol', 'lrlewdhol o', 'lll wohdeor', 'hwrlledl oo', 'elrooh lwld', 'ewrlo lhdlo', ' hlloroelwd', 'h eodollwlr', 'wr ldleohlo', 'or ohldlwel', 'lohe lowlrd', 'rhdwoelllo ', 'owhorldell ', 'rlle ohdolw', 'rhlwolle od', 'woro helldl' ]
+// [ 'oedorlwlh l', 'oldlrhelwo ', 'erllol dhow', ' lwrellodoh', 'holdlerw ol',
+//   'lrlewdhol o', 'lll wohdeor', 'hwrlledl oo', 'elrooh lwld', 'ewrlo lhdlo',
+//   'hlloroelwd', 'h eodollwlr', 'wr ldleohlo', 'or ohldlwel', 'lohe lowlrd',
+//   'rhdwoelllo ', 'owhorldell ', 'rlle ohdolw', 'rhlwolle od', 'woro helldl' ]
 ```
 
 
@@ -75,6 +78,6 @@ R("example/ex-async.R")
   });
   
 // [ { group: '(40,55]', rating: 46.7143, advance: 41.1429 },
-     { group: '(55,70]', rating: 64.6154, advance: 41.9231 },
-     { group: '(70,85]', rating: 77.2, advance: 45.5 } ]
+//   { group: '(55,70]', rating: 64.6154, advance: 41.9231 },
+//   { group: '(70,85]', rating: 77.2, advance: 45.5 } ]
 ```
