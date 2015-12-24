@@ -1,0 +1,21 @@
+{
+  "name": "r-script",
+  "version": "0.0.1",
+  "description": "A simple little module for passing data from NodeJS to R (and back again).",
+  "keywords": [ "R", "rstats", "statistics" ],
+  "homepage": "http://github.com/joshkatz/r-script",
+  "bugs": "http://github.com/joshkatz/r-script/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Josh Katz"
+  },
+  "main": "index.js",
+  "repository": "joshkatz/r-script",
+  "dependencies": {
+    "needs": "joshkatz/needs",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "queue-async": "^1.0.7"
+  }
+}
