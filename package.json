@@ -1,8 +1,12 @@
 {
   "name": "r-script",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple little module for passing data from NodeJS to R (and back again).",
-  "keywords": [ "R", "rstats", "statistics" ],
+  "keywords": [
+    "R",
+    "rstats",
+    "statistics"
+  ],
   "homepage": "http://github.com/joshkatz/r-script",
   "bugs": "http://github.com/joshkatz/r-script/issues",
   "license": "MIT",
