@@ -12,7 +12,7 @@
   "main": "index.js",
   "repository": "joshkatz/r-script",
   "dependencies": {
-    "needs": "joshkatz/needs",
+    "needs": "git+https://github.com/joshkatz/needs.git",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

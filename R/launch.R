@@ -1,4 +1,4 @@
-source(file.path(Sys.getenv("DIRNAME"), "node_modules", "needs", "needs.R"))
+source(file.path(Sys.getenv("DIRNAME"), "..", "needs", "needs.R"))
 needs(jsonlite)
 
 run <- function(dataIn) {
