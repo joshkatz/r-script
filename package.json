@@ -1,6 +1,6 @@
 {
   "name": "r-script",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple little module for passing data from NodeJS to R (and back again).",
   "keywords": [
     "R",
@@ -16,7 +16,6 @@
   "main": "index.js",
   "repository": "joshkatz/r-script",
   "dependencies": {
-    "needs": "git+https://github.com/joshkatz/needs.git",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
