@@ -29,10 +29,7 @@ R.prototype.call = function(_opts, _callback) {
   var opts = _.isFunction(_opts) ? {} : _opts;
   this.options.env.input = JSON.stringify([this.d, this.path, opts]);
   var child = child_process.spawn("Rscript", this.args, this.options);
-  var body  = {
-    out: "",
-    err: "",
-  }; 
+  var body  = { out: "", err: "", };
   child.stderr.on("data", function(d){
     body.err += d;
   });
@@ -40,8 +37,13 @@ R.prototype.call = function(_opts, _callback) {
     body.out += d;
   });
   child.stderr.on("end", function(){
-    if (body.err) callback(new Error(body.err.toString()));
-  })
+    // NOTE: Warning or Info messages get caught in stderr!
+    if (body.err) {
+      body.err = body.err.toString(); 
+      if (body.err.indexOf('Error ') != -1) callback(new Error(body.err));
+      else body.err = null; // To let the stdout be sent to callback.
+    }
+  });
   child.stdout.on("end", function() {
     if (!body.err) callback(null, JSON.parse(body.out));
   });
