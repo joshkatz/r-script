@@ -29,7 +29,14 @@ R.prototype.call = function(_opts, _callback) {
   var opts = _.isFunction(_opts) ? {} : _opts;
   this.options.env.input = JSON.stringify([this.d, this.path, opts]);
   var child = child_process.spawn("Rscript", this.args, this.options);
-  var body  = { out: "", err: "", };
+  var body  = { out: "", err: "", timeout: false};
+  if (_opts.timeout) {
+    setTimeout(function(){
+      child.stdin.pause(); // Required to make sure KILL works
+      child.kill();
+      body.timeout = true;
+    }, _opts.timeout);
+  }
   child.stderr.on("data", function(d){
     body.err += d;
   });
@@ -45,6 +52,7 @@ R.prototype.call = function(_opts, _callback) {
     }
   });
   child.stdout.on("end", function() {
+    if (body.timeout) callback(new Error('Too long run... terminated'));
     if (!body.err) callback(null, JSON.parse(body.out));
   });
 };
