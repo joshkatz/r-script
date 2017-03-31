@@ -29,9 +29,31 @@ R.prototype.call = function(_opts, _callback) {
   var opts = _.isFunction(_opts) ? {} : _opts;
   this.options.env.input = JSON.stringify([this.d, this.path, opts]);
   var child = child_process.spawn("Rscript", this.args, this.options);
-  child.stderr.on("data", callback);
+  var body  = { out: "", err: "", timeout: false};
+  if (_opts.timeout) {
+    setTimeout(function(){
+      child.stdin.pause(); // Required to make sure KILL works
+      child.kill();
+      body.timeout = true;
+    }, _opts.timeout);
+  }
+  child.stderr.on("data", function(d){
+    body.err += d;
+  });
   child.stdout.on("data", function(d) {
-    callback(null, JSON.parse(d));
+    body.out += d;
+  });
+  child.stderr.on("end", function(){
+    // NOTE: Warning or Info messages get caught in stderr!
+    if (body.err) {
+      body.err = body.err.toString(); 
+      if (body.err.indexOf('Error ') != -1) callback(new Error(body.err));
+      else body.err = null; // To let the stdout be sent to callback.
+    }
+  });
+  child.stdout.on("end", function() {
+    if (body.timeout) callback(new Error('Too long run... terminated'));
+    if (!body.err) callback(null, JSON.parse(body.out));
   });
 };
 
