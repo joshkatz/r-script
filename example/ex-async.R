@@ -11,6 +11,6 @@ cat("unless directed to a file", file = "out.Rout")
 df %>% 
   mutate(group = cut(rating, nGroups, ordered = T)) %>% 
   group_by(group) %>% 
-  summarize_each(funs_(fxn)) %>%
+  summarize_all(funs_(fxn)) %>%
   select(group, rating, advance) %>%
   mutate(group = as.character(group))
