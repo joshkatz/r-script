@@ -29,9 +29,13 @@ R.prototype.call = function(_opts, _callback) {
   var opts = _.isFunction(_opts) ? {} : _opts;
   this.options.env.input = JSON.stringify([this.d, this.path, opts]);
   var child = child_process.spawn("Rscript", this.args, this.options);
+  var body = "";
   child.stderr.on("data", callback);
   child.stdout.on("data", function(d) {
-    callback(null, JSON.parse(d));
+     body += d;
+  });
+  child.on("close", function(code) {
+    callback(null, JSON.parse(body));
   });
 };
 
