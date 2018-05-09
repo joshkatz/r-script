@@ -3,7 +3,8 @@ var _ = require("underscore"),
 
 function init(path) {
   var obj = new R(path);
-  return _.bindAll(obj, "data", "call", "callSync");
+  _.bindAll(obj, "data", "call", "callSync");
+  return obj;
 }
 
 function R(path) {
