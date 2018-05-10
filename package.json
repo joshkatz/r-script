@@ -14,7 +14,7 @@
     "name": "Josh Katz"
   },
   "main": "index.js",
-  "repository": "joshkatz/r-script",
+  "repository": "khamurdik/r-script",
   "dependencies": {
     "underscore": "^1.8.3"
   },
