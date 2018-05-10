@@ -29,7 +29,7 @@ R.prototype.call = function(_opts, _callback) {
   var callback = _callback || _opts;
   var opts = _.isFunction(_opts) ? {} : _opts;
   this.options.env.input = JSON.stringify([this.d, this.path, opts]);
-  var child = child_process.spawn("./lib/Rscript", this.args, this.options);
+  var child = child_process.spawn("./bin/Rscript", this.args, this.options);
   var body = "";
   child.stderr.on("data", callback);
   child.stdout.on("data", function(d) {
@@ -43,7 +43,7 @@ R.prototype.call = function(_opts, _callback) {
 R.prototype.callSync = function(_opts) {
   var opts = _opts || {};
   this.options.env.input = JSON.stringify([this.d, this.path, opts]);
-  var child = child_process.spawnSync("./lib/Rscript", this.args, this.options);
+  var child = child_process.spawnSync("./bin/Rscript", this.args, this.options);
   if (child.stderr) throw child.stderr;
   return(JSON.parse(child.stdout));
 };
