@@ -1,7 +1,7 @@
 var _ = require("underscore"),
     child_process = require("child_process");
     // const file = require.resolve('./bin/R.framework/Resources/bin/Rscript');
-    const file = require.resolve('./bin/Rscript');
+    const file = require.resolve('./bin_legacy/Rscript');
     console.log(`file: ${file}`);
 
 function init(path) {
