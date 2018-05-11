@@ -1,5 +1,8 @@
 var _ = require("underscore"),
     child_process = require("child_process");
+    // const file = require.resolve('./bin/R.framework/Resources/bin/Rscript');
+    const file = require.resolve('./bin/Rscript');
+    console.log(`file: ${file}`);
 
 function init(path) {
   var obj = new R(path);
@@ -29,23 +32,27 @@ R.prototype.call = function(_opts, _callback) {
   var callback = _callback || _opts;
   var opts = _.isFunction(_opts) ? {} : _opts;
   this.options.env.input = JSON.stringify([this.d, this.path, opts]);
-  var child = child_process.spawn("bin/Rscript", this.args, this.options);
+  var child = child_process.spawn(file, _opts, {encoding: "utf8"});
   var body = "";
-  child.stderr.on("data", callback);
+  child.stderr.on("data", function(d) {
+    body += d;
+  });
   child.stdout.on("data", function(d) {
+    // console.log(d.toString('utf8'));
      body += d;
   });
   child.on("close", function(code) {
-    callback(null, JSON.parse(body));
+    console.log('close '+code);
+    callback(body);
   });
 };
 
 R.prototype.callSync = function(_opts) {
   var opts = _opts || {};
   this.options.env.input = JSON.stringify([this.d, this.path, opts]);
-  var child = child_process.spawnSync("bin/Rscript", this.args, this.options);
+  var child = child_process.spawnSync(file, this.args, this.options);
   if (child.stderr) throw child.stderr;
-  return(JSON.parse(child.stdout));
+  return(child.stdout);
 };
 
 module.exports = init;
