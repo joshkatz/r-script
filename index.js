@@ -32,7 +32,7 @@ R.prototype.call = function(_opts, _callback) {
   var callback = _callback || _opts;
   var opts = _.isFunction(_opts) ? {} : _opts;
   this.options.env.input = JSON.stringify([this.d, this.path, opts]);
-  var child = child_process.spawn(file, this.args, this.options);
+  var child = child_process.spawn(file, _opts);
   var body = "";
   child.stderr.on("data", function(d) {
     body += d;
