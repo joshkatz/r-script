@@ -1,8 +1,5 @@
 var _ = require("underscore"),
     child_process = require("child_process");
-    // const file = require.resolve('./bin/R.framework/Resources/bin/Rscript');
-    const file = require.resolve('./bin_legacy/Rscript');
-    console.log(`file: ${file}`);
 
 function init(path) {
   var obj = new R(path);
@@ -32,27 +29,23 @@ R.prototype.call = function(_opts, _callback) {
   var callback = _callback || _opts;
   var opts = _.isFunction(_opts) ? {} : _opts;
   this.options.env.input = JSON.stringify([this.d, this.path, opts]);
-  var child = child_process.spawn(file, _opts);
+  var child = child_process.spawn("Rscript", this.args, this.options);
   var body = "";
-  child.stderr.on("data", function(d) {
-    body += d;
-  });
+  child.stderr.on("data", callback);
   child.stdout.on("data", function(d) {
-    // console.log(d.toString('utf8'));
      body += d;
   });
   child.on("close", function(code) {
-    console.log('close '+code);
-    callback(body);
+    callback(null, JSON.parse(body));
   });
 };
 
 R.prototype.callSync = function(_opts) {
   var opts = _opts || {};
   this.options.env.input = JSON.stringify([this.d, this.path, opts]);
-  var child = child_process.spawnSync(file, this.args, this.options);
+  var child = child_process.spawnSync("Rscript", this.args, this.options);
   if (child.stderr) throw child.stderr;
-  return(child.stdout);
+  return(JSON.parse(child.stdout));
 };
 
 module.exports = init;
