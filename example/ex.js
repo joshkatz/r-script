@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var R = require("r-script");
+var R = require("..");
 
 // sync
 var out = R("example/ex-sync.R")
